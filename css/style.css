@@ -1,25 +1,42 @@
 .fade {
-  -webkit-animation-name: fade;
-          animation-name: fade;
+  -webkit-animation-name: slideUp;
+          animation-name: slideUp;
+  /* -webkit-animation-timing-function: ease-in-out;
+          animation-timing-function: ease-in-out; */
   -webkit-animation-duration: 2.5s;
           animation-duration: 2.5s;
-  -webkit-animation-name: fade;
-  -webkit-animation-duration: 2.5s;
+  /* -ms-animation-name: slideUp; */
+  /* -ms-animation-duration: 2.5s;
+  -ms-animation-timing-function: ease-in-out; */
 }
-@-webkit-keyframes fade {
+@-webkit-keyframes slideUp {
   from {
     opacity: 0.1;
+    /* height: 0; */
   }
   to {
     opacity: 1;
+    /* height: 100%; */
   }
 }
-@keyframes fade {
+/* @-ms-keyframes slideUp {
   from {
-    opacity: 0.1;
+    opacity: 0;
+    height: 0;
   }
   to {
     opacity: 1;
+    height: 100%;
+  }
+} */
+@keyframes slideUp {
+  from {
+    opacity: 0.1;
+    /* height: 0; */
+  }
+  to {
+    opacity: 1;
+    /* height: 100%; */
   }
 }
 .more-splash {
