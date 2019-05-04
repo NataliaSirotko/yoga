@@ -131,51 +131,62 @@ window.addEventListener('DOMContentLoaded', function() {
                 item.classList.remove('more-splash');
             });
         });
+        //это замена forEach для IE
+        for (let i=0; i<descriptionBtns.length; i++) {
+            descriptionBtns[i].addEventListener('click',  function() {
+                overlay.style.display = 'block';
+                this.classList.add('more-splash');
+                document.body.style.overflow = 'hidden';
+            });
+            close.addEventListener('click', function() {
+                descriptionBtns.classList.remove('more-splash');
+            });
+        }
+    
 
-    // //    let isChrome = /Chrome/.test(navigator.userAgent);
-    // // let isSafari = /Safari/.test(navigator.userAgent);
-    //     let isIe = /InternetExplorer/.test(navigator.userAgent),
-    //         edge = /Edge/.test(navigator.userAgent);
+    // let isChrome = /Chrome/.test(navigator.userAgent);
+    // let isSafari = /Safari/.test(navigator.userAgent);
+    //    let isMoz = /Firefox/.test(navigator.userAgent);
+        let isIe = /InternetExplorer/.test(navigator.userAgent),
+            edge = /Edge/.test(navigator.userAgent);
 
-    //     if (window.screen.width < 500) {
-    //         overlay.classList.remove('fade');
-    //         console.log('done');
-    //     } else {
-    //         if (!(isIe || edge)) {  
-    //             more.addEventListener('click', function() {                  
-    //                 overlay.classList.remove('fade');
-    //                 overlay.animate([
-    //                     {width: '0'},
-    //                     {width: '100%'}
-    //                 ],
-    //                     {duration: 2500});
-    //                 popup.animate([
-    //                     {left: '0'},
-    //                     {left: '50%'}
-    //                 ],
-    //                     {duration: 1500});
+        if (window.screen.width < 500) {
+            overlay.classList.remove('fade');
+            console.log('done');
+        } else {
+            if (!(isIe || edge)) {  
+                more.addEventListener('click', function() {                  
+                    overlay.classList.remove('fade');
+                    overlay.animate([
+                        {width: '0'},
+                        {width: '100%'}
+                    ],
+                        {duration: 2500});
+                    popup.animate([
+                        {left: '0'},
+                        {left: '50%'}
+                    ],
+                        {duration: 1500});
 
-    //             });
+                });
 
-    //             descriptionBtns.forEach(item => {
-    //                 item.addEventListener('click', function() {
-    //                     overlay.classList.remove('fade');
-    //                 overlay.animate([
-    //                     {width: '0'},
-    //                     {width: '100%'}
-    //                 ],
-    //                     {duration: 2500});
-    //                 popup.animate([
-    //                     {left: '0'},
-    //                     {left: '50%'}
-    //                 ],
-    //                     {duration: 1500});
-    //                 });
-    //             });
-
-
-    //         }
-    //     } 
+                descriptionBtns.forEach(item => {
+                    item.addEventListener('click', function() {
+                        overlay.classList.remove('fade');
+                        overlay.animate([
+                            {width: '0'},
+                            {width: '100%'}
+                        ],
+                            {duration: 2500});
+                        popup.animate([
+                            {left: '0'},
+                            {left: '50%'}
+                        ],
+                            {duration: 1500});
+                        });
+                });
+            }
+        } 
 
     }
 
@@ -185,15 +196,7 @@ window.addEventListener('DOMContentLoaded', function() {
     
     
     
-    // for (i=0; i<d.length; i++) {
-    //     descriptionBtns[i].addEventListener('click',  function() {
-    //         overlay.style.display = 'block';
-    //         this.classList.add('more-splash');
-    //         document.body.style.overflow = 'hidden';
-    //         return;
-    //     });
-    // }
-
+   
     
 
     // if (!Array.prototype.forEach) {
