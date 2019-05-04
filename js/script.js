@@ -105,17 +105,17 @@ window.addEventListener('DOMContentLoaded', function() {
     function getModal() {
         let more = document.querySelector('.more'),
             overlay = document.querySelector('.overlay'),
-            close = document.querySelector('.popup-close');
-       
+            close = document.querySelector('.popup-close'),
+            popup = document.querySelector('.popup');       
+
         more.addEventListener('click', function() {
             overlay.style.display = 'block';
             this.classList.add('more-splash');
             document.body.style.overflow = 'hidden';
         });
-
         close.addEventListener('click', function() {
             overlay.style.display = 'none';
-            more.classList.remove('.more-splash');
+            more.classList.remove('more-splash');
             document.body.style.overflow = '';
         });
 
@@ -127,9 +127,81 @@ window.addEventListener('DOMContentLoaded', function() {
                 this.classList.add('more-splash');
                 document.body.style.overflow = 'hidden';
             });
+            close.addEventListener('click', function() {
+                item.classList.remove('more-splash');
+            });
         });
+
+    // //    let isChrome = /Chrome/.test(navigator.userAgent);
+    // // let isSafari = /Safari/.test(navigator.userAgent);
+    //     let isIe = /InternetExplorer/.test(navigator.userAgent),
+    //         edge = /Edge/.test(navigator.userAgent);
+
+    //     if (window.screen.width < 500) {
+    //         overlay.classList.remove('fade');
+    //         console.log('done');
+    //     } else {
+    //         if (!(isIe || edge)) {  
+    //             more.addEventListener('click', function() {                  
+    //                 overlay.classList.remove('fade');
+    //                 overlay.animate([
+    //                     {width: '0'},
+    //                     {width: '100%'}
+    //                 ],
+    //                     {duration: 2500});
+    //                 popup.animate([
+    //                     {left: '0'},
+    //                     {left: '50%'}
+    //                 ],
+    //                     {duration: 1500});
+
+    //             });
+
+    //             descriptionBtns.forEach(item => {
+    //                 item.addEventListener('click', function() {
+    //                     overlay.classList.remove('fade');
+    //                 overlay.animate([
+    //                     {width: '0'},
+    //                     {width: '100%'}
+    //                 ],
+    //                     {duration: 2500});
+    //                 popup.animate([
+    //                     {left: '0'},
+    //                     {left: '50%'}
+    //                 ],
+    //                     {duration: 1500});
+    //                 });
+    //             });
+
+
+    //         }
+    //     } 
+
     }
 
     getModal();
+
+    
+    
+    
+    
+    // for (i=0; i<d.length; i++) {
+    //     descriptionBtns[i].addEventListener('click',  function() {
+    //         overlay.style.display = 'block';
+    //         this.classList.add('more-splash');
+    //         document.body.style.overflow = 'hidden';
+    //         return;
+    //     });
+    // }
+
+    
+
+    // if (!Array.prototype.forEach) {
+    //     Array.prototype.forEach = function(fn, scope) {
+    //         for(var i = 0, len = this.length; i < len; ++i) {
+    //             fn.call(scope, this[i], i, this);
+    //         }
+    //     }
+    // }
   
 });

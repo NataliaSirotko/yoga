@@ -9,13 +9,13 @@
 <body>
     <input id = "age" value= "30">
     <script type="text/javascript">
-        let age = document.getElementById('age');
+        let input = document.getElementById('age');
  
         function showUser(surname, name) {
-                alert("Пользователь " + surname + " " + name + ", его возраст " + age.value);
+                alert("Пользователь " + surname + " " + name + ", его возраст " + this.value);
         }
   
-        showUser('Nata', 'S');
+        showUser.apply(input, ['Nata', 'S']);
     </script>
 </body>
 </html>
