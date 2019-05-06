@@ -1,4 +1,4 @@
-window.addEventListener('DOMContentLoaded', function() {
+window.addEventListener('DOMContentLoaded', () => {
 
     'use strict';
     let tab = document.querySelectorAll('.info-header-tab'),
@@ -21,7 +21,7 @@ window.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    info.addEventListener('click', function(event) {
+    info.addEventListener('click', event => {
         let target = event.target;
         if (target && target.classList.contains('info-header-tab')) {
             for (let i = 0; i<tab.length; i++) {
@@ -89,12 +89,12 @@ window.addEventListener('DOMContentLoaded', function() {
     let anchors = document.querySelectorAll('a[href*="#"]');
 
     for (let item of anchors) {
-        item.addEventListener('click', function(event) {
+        item.addEventListener('click', event => {
             event.preventDefault();
 
             let elemId = item.getAttribute('href');
 
-            document.querySelector('' + elemId).scrollIntoView({
+            document.querySelector(`${elemId}`).scrollIntoView({ //'' + elemId
                 behavior: 'smooth',
                 block: 'start'
             });
@@ -108,12 +108,12 @@ window.addEventListener('DOMContentLoaded', function() {
             close = document.querySelector('.popup-close'),
             popup = document.querySelector('.popup');       
 
-        more.addEventListener('click', function() {
+        more.addEventListener('click', () => {
             overlay.style.display = 'block';
             this.classList.add('more-splash');
             document.body.style.overflow = 'hidden';
         });
-        close.addEventListener('click', function() {
+        close.addEventListener('click', () => {
             overlay.style.display = 'none';
             more.classList.remove('more-splash');
             document.body.style.overflow = '';
@@ -122,23 +122,23 @@ window.addEventListener('DOMContentLoaded', function() {
         let descriptionBtns = document.querySelectorAll('.description-btn');
 
         descriptionBtns.forEach(item => {
-            item.addEventListener('click', function() {
+            item.addEventListener('click', () => {
                 overlay.style.display = 'block';
                 this.classList.add('more-splash');
                 document.body.style.overflow = 'hidden';
             });
-            close.addEventListener('click', function() {
+            close.addEventListener('click', () => {
                 item.classList.remove('more-splash');
             });
         });
         //это замена forEach для IE
         for (let i=0; i<descriptionBtns.length; i++) {
-            descriptionBtns[i].addEventListener('click',  function() {
+            descriptionBtns[i].addEventListener('click', () => {
                 overlay.style.display = 'block';
                 this.classList.add('more-splash');
                 document.body.style.overflow = 'hidden';
             });
-            close.addEventListener('click', function() {
+            close.addEventListener('click', () => {
                 descriptionBtns.classList.remove('more-splash');
             });
         }
@@ -155,7 +155,7 @@ window.addEventListener('DOMContentLoaded', function() {
             console.log('done');
         } else {
             if (!(isIe || edge)) {  
-                more.addEventListener('click', function() {                  
+                more.addEventListener('click', () => {                  
                     overlay.classList.remove('fade');
                     overlay.animate([
                         {width: '0'},
@@ -171,7 +171,7 @@ window.addEventListener('DOMContentLoaded', function() {
                 });
 
                 descriptionBtns.forEach(item => {
-                    item.addEventListener('click', function() {
+                    item.addEventListener('click', () => {
                         overlay.classList.remove('fade');
                         overlay.animate([
                             {width: '0'},
@@ -192,19 +192,4 @@ window.addEventListener('DOMContentLoaded', function() {
 
     getModal();
 
-    
-    
-    
-    
-   
-    
-
-    // if (!Array.prototype.forEach) {
-    //     Array.prototype.forEach = function(fn, scope) {
-    //         for(var i = 0, len = this.length; i < len; ++i) {
-    //             fn.call(scope, this[i], i, this);
-    //         }
-    //     }
-    // }
-  
 });
