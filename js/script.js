@@ -192,4 +192,57 @@ window.addEventListener('DOMContentLoaded', () => {
 
     getModal();
 
+    //Form
+    function sendForm() {
+        let message = {
+            loading: 'Загрузка..',
+            success: 'Спасибо, скоро мы с вами свяжемся',
+            failure: 'Что-то пошло не так...'
+        };
+    
+        let form = document.getElementsByTagName('form');
+    
+        for (let j=0; j< form.length; j++) {
+    
+            let input = form[j].getElementsByTagName('input'),
+                statusMessage = document.createElement('div');
+    
+            statusMessage.classList.add('status');
+    
+            let inputTel = form[j].querySelector('[type="tel"]');
+    
+            inputTel.addEventListener('keyup', () => {
+                inputTel.value = inputTel.value.replace(/[^0-9\+]/g, '');
+            });
+    
+            form[j].addEventListener('submit', (event) => {
+                event.preventDefault();
+                form[j].appendChild(statusMessage);
+    
+                let request = new XMLHttpRequest();
+                request.open('POST', 'server.php');
+                request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    
+                let formData = new FormData(form[j]);
+                request.send(formData);
+    
+                request.addEventListener('readystatechange', () => {
+                    if (request.readyState < 4) {
+                        statusMessage.innerHTML = message.loading;
+                    } else if (request.readyState === 4 && request.status == 200) {
+                        statusMessage.innerHTML = message.success;
+                    } else {
+                        statusMessage.innerHTML = message.failure;
+                    }
+                });
+    
+                for (let i=0; i<input.length; i++) {
+                    input[i].value = '';
+                }
+            });
+        }
+    }
+
+    sendForm();  
+    
 });
