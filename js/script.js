@@ -108,9 +108,9 @@ window.addEventListener('DOMContentLoaded', () => {
             close = document.querySelector('.popup-close'),
             popup = document.querySelector('.popup');       
 
-        more.addEventListener('click', () => {
+        more.addEventListener('click', (e) => {
             overlay.style.display = 'block';
-            this.classList.add('more-splash');
+            e.target.classList.add('more-splash'); // с this - работает, но ругается
             document.body.style.overflow = 'hidden';
         });
         close.addEventListener('click', () => {
@@ -139,7 +139,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 document.body.style.overflow = 'hidden';
             });
             close.addEventListener('click', () => {
-                descriptionBtns.classList.remove('more-splash');
+                descriptionBtns[i].classList.remove('more-splash');
             });
         }
     
@@ -195,7 +195,7 @@ window.addEventListener('DOMContentLoaded', () => {
     //Form
     function sendForm() {
         let message = {
-            loading: 'Загрузка..',
+            loading: 'Загружается..',
             success: 'Спасибо, скоро мы с вами свяжемся',
             failure: 'Что-то пошло не так...'
         };
@@ -221,18 +221,30 @@ window.addEventListener('DOMContentLoaded', () => {
     
                 let request = new XMLHttpRequest();
                 request.open('POST', 'server.php');
-                request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                //request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                request.setRequestHeader('Content-type', 'application/json; charset=utf-8');
     
                 let formData = new FormData(form[j]);
-                request.send(formData);
+
+                let obj = {};
+                formData.forEach((value, key) => {
+                    obj[key] = value;
+                });
+                let json = JSON.stringify(obj);
+
+                //request.send(formData);
+                request.send(json);
     
                 request.addEventListener('readystatechange', () => {
                     if (request.readyState < 4) {
                         statusMessage.innerHTML = message.loading;
+                        console.log('отправляется')
                     } else if (request.readyState === 4 && request.status == 200) {
                         statusMessage.innerHTML = message.success;
+                        console.log('отправлено');
                     } else {
                         statusMessage.innerHTML = message.failure;
+                        console.log('ошибка');
                     }
                 });
     
