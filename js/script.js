@@ -35,14 +35,14 @@ window.addEventListener('DOMContentLoaded', () => {
     });
 
     //Timer
-    let deadline = '2019-05-10';
+    let deadline = '2019-05-22';
 
     function getTimeRemaining(endtime) {
         let t = Date.parse(endtime) - Date.parse(new Date()),
             seconds = Math.floor((t/1000) % 60),
             minutes = Math.floor((t/1000/60)%60),
             hours = Math.floor((t/(1000*60*60)));
-            // hours = Math.floor((t/1000/60/60) % 24),
+             //hours = Math.floor((t/1000/60/60) % 24),
             // days = Math.floor((t/(1000*60*60*24)));
         
         return {
@@ -222,12 +222,8 @@ window.addEventListener('DOMContentLoaded', () => {
             form[j].addEventListener('submit', (event) => {
                 event.preventDefault();
                 form[j].appendChild(statusMessage);
-    
-                let request = new XMLHttpRequest();
-                request.open('POST', 'server.php');
-                //request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                request.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-    
+                popup.appendChild(img);
+
                 let formData = new FormData(form[j]);
 
                 let obj = {};
@@ -236,34 +232,56 @@ window.addEventListener('DOMContentLoaded', () => {
                 });
                 let json = JSON.stringify(obj);
 
-                //request.send(formData);
-                request.send(json);          
-    
-                request.addEventListener('readystatechange', function func() {
-                        if (request.readyState < 4) {
-                        //statusMessage.innerHTML = message.loading;
-                        form[j].style.display = 'none';          
-                        img.src = "/icons/ajax-loader.gif";
-                        img.style.margin = "10px 240px 0";
-                        popup.appendChild(img);
-                        console.log('отправляется');                  
-                    } else if (request.readyState === 4 && request.status == 200) {
-                        //statusMessage.innerHTML = message.success;                      
-                        img.src = "/icons/herbal.png";
-                        img.style.width = "150px";
-                        console.log('отправлено');
-                    } else {
-                        //statusMessage.innerHTML = message.failure;
-                        img.src = "/icons/fish.psd";
-                        img.style.width = "150px";
-                        console.log('ошибка');
-                    }                           
-                });
+                function postData(data) {
 
-                for (let i=0; i<input.length; i++) {
-                    input[i].value = '';
+                    return new Promise(function(resolve, reject) {
+                        let request = new XMLHttpRequest();
+
+                        request.open('POST', 'server.php');
+
+                        //request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                        request.setRequestHeader('Content-type', 'application/json; charset=utf-8');  
+                        
+                        request.addEventListener('readystatechange', () => {
+                            if (request.readyState < 4) {
+                                resolve()                
+                            } else if (request.readyState === 4 && request.status == 200) {
+                                resolve()
+                            } else {
+                                reject()
+                            }      
+                        });
+
+                        request.send(data);
+                    })  
+                }// end postData
+
+                function clearInput() {
+                    for (let i=0; i<input.length; i++) {
+                        input[i].value = '';
+                    }
                 }
-
+                
+                    postData(json)
+                        .then(() => {
+                            //statusMessage.innerHTML = message.loading;
+                            form[j].style.display = 'none';          
+                            img.src = "/icons/ajax-loader.gif";
+                            img.style.margin = "10px 240px 0";
+                        })
+                        .then(() => {
+                            //statusMessage.innerHTML = message.success;                      
+                            img.src = "/icons/herbal.png";
+                            img.style.width = "150px";
+                            console.log('отправлено');
+                        })
+                        .catch(() => {
+                            //statusMessage.innerHTML = message.failure;
+                            img.src = "/icons/fish.psd";
+                            img.style.width = "150px";
+                            console.log('ошибка');
+                        })
+                        .then(clearInput)
             });
        
             let more = document.querySelector('.more');
