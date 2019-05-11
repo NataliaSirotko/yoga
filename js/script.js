@@ -232,14 +232,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 });
                 let json = JSON.stringify(obj);
 
-                function postData(data) {
-                    let more = document.querySelector('.more');
-
-                    more.addEventListener('click', function() {
-                        form[j].style.display = 'block';
-                        popup.removeChild(img);
-                        //form[j].removeChild(statusMessage);
-                    }); 
+                function postData(data) {                  
 
                     return new Promise(function(resolve, reject) {
                         let request = new XMLHttpRequest();
@@ -291,6 +284,13 @@ window.addEventListener('DOMContentLoaded', () => {
                         })
                         .then(clearInput)
 
+                    let more = document.querySelector('.more');
+
+                    more.addEventListener('click', function() {
+                        form[j].style.display = 'block';
+                        popup.removeChild(img);
+                        //form[j].removeChild(statusMessage);
+                    }); 
                 
             });
        
