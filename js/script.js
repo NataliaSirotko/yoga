@@ -285,13 +285,13 @@ window.addEventListener('DOMContentLoaded', () => {
                         })
                         .then(clearInput)
 
-                    let more = document.querySelector('.more');
+                let more = document.querySelector('.more');
 
-                    more.addEventListener('click', function() {
-                        form[j].style.display = 'block';
-                        img.style.display = "none";
-                        //form[j].removeChild(statusMessage);
-                    }); 
+                more.addEventListener('click', function() {
+                    form[j].style.display = 'block';
+                    img.style.display = "none";
+                    //form[j].removeChild(statusMessage);
+                }); 
                 
             });
        
