@@ -266,7 +266,8 @@ window.addEventListener('DOMContentLoaded', () => {
                     postData(json)
                         .then(() => {
                             //statusMessage.innerHTML = message.loading;
-                            form[j].style.display = 'none';          
+                            form[j].style.display = 'none';
+                            img.style.display = "block";
                             img.src = "/icons/ajax-loader.gif";
                             img.style.margin = "10px 240px 0";
                         })
@@ -288,7 +289,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
                     more.addEventListener('click', function() {
                         form[j].style.display = 'block';
-                        popup.removeChild(img);
+                        img.style.display = "none";
                         //form[j].removeChild(statusMessage);
                     }); 
                 
