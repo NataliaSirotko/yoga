@@ -124,7 +124,7 @@ window.addEventListener('DOMContentLoaded', () => {
         descriptionBtns.forEach(item => {
             item.addEventListener('click', () => {
                 overlay.style.display = 'block';
-                this.classList.add('more-splash');
+                item.classList.add('more-splash');
                 document.body.style.overflow = 'hidden';
             });
             close.addEventListener('click', () => {
@@ -133,9 +133,9 @@ window.addEventListener('DOMContentLoaded', () => {
         });
         //это замена forEach для IE
         for (let i=0; i<descriptionBtns.length; i++) {
-            descriptionBtns[i].addEventListener('click', () => {
+            descriptionBtns[i].addEventListener('click', (event) => {
                 overlay.style.display = 'block';
-                this.classList.add('more-splash');
+                event.target.classList.add('more-splash');
                 document.body.style.overflow = 'hidden';
             });
             close.addEventListener('click', () => {
@@ -292,7 +292,6 @@ window.addEventListener('DOMContentLoaded', () => {
                     img.style.display = "none";
                     //form[j].removeChild(statusMessage);
                 }); 
-                
             });
        
             
