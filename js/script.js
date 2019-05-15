@@ -285,19 +285,165 @@ window.addEventListener('DOMContentLoaded', () => {
                         })
                         .then(clearInput)
 
-                let more = document.querySelector('.more');
+                let more = document.querySelector('.more'),
+                    descrBtn = document.querySelectorAll('.description-btn');
 
-                more.addEventListener('click', function() {
+                more.addEventListener('click', () => {
                     form[j].style.display = 'block';
                     img.style.display = "none";
                     //form[j].removeChild(statusMessage);
                 }); 
+                descrBtn.forEach(item => {
+                    item.addEventListener('click', () => {
+                        form[j].style.display = 'block';
+                        img.style.display = "none";
+                        //form[j].removeChild(statusMessage);
+                    });
+                });
             });
-       
-            
+                  
         }   
     }
 
     sendForm();  
+
+    //Slider
+
+    let slideIndex = 1,
+        slides = document.querySelectorAll('.slider-item'),
+        prev = document.querySelector('.prev'),
+        next = document.querySelector('.next'),
+        dotsWrap = document.querySelector('.slider-dots'),
+        dots = document.querySelectorAll('.dot');
+
+        showSlides(slideIndex);
+    
+        function showSlides(n) {
+
+        if (n > slides.length) {
+            slideIndex = 1;
+        }
+        if (n < 1) {
+            slideIndex = slides.length;
+        }
+
+        slides.forEach(item => item.style.display = 'none');
+        dots.forEach(item => item.classList.remove('dot-active'));
+
+        slides[slideIndex - 1].style.display = 'block';
+        slides[slideIndex - 1].classList.remove('fade');
+        slides[slideIndex - 1].animate([
+            {width: '30%',
+            transform: 'rotate(360deg)'},
+            {offset: 0.6, 
+            width: '100%',
+            transform: 'rotate(0deg)'},           
+            {width: '80%',
+            transform: 'rotate(0deg)'}
+        ],
+            {duration: 2500});
+
+        dots[slideIndex - 1].classList.add('dot-active');
+    }
+
+    function plusSlides(n) {
+        showSlides(slideIndex += n);
+    }
+    function currentSlide(n) {
+        showSlides(slideIndex = n);
+    }
+
+    prev.addEventListener('click', () => {
+        plusSlides(-1);
+    });
+    
+    next.addEventListener('click', () => {
+        plusSlides(1);
+    });
+
+    dotsWrap.addEventListener('click', (event) => {
+        for (let i = 0; i < dots.length + 1; i++) {
+            if (event.target.classList.contains('dot') && event.target == dots[i-1]) {
+                currentSlide(i);
+            }
+        }
+    });
+
+    // Calc
+
+    let persons = document.querySelectorAll('.counter-block-input')[0],
+        restDays = document.querySelectorAll('.counter-block-input')[1],
+        place = document.getElementById('select'),
+        totalValue = document.getElementById('total'),
+        personsSum = 0,
+        daysSum = 0,
+        total = 0;
+
+    totalValue.innerHTML = 0;
+
+    //люди
+    persons.addEventListener('input', function(a) {
+        this.value = this.value.replace(/[e\+]/g, '').replace(/[^0-9]/g, '');
+        personsSum = +this.value;
+        check(personsSum);
+
+        if (restDays.value == '') {
+            totalValue.innerHTML = 0;
+        } else {
+            totalValue.innerHTML = total;
+            animateValue(totalValue, 0, total, 7000);
+        }
+    });
+
+    //дни
+    restDays.addEventListener('input', function(a) { 
+        this.value = this.value.replace(/[e\+]/g, '').replace(/[^0-9]/g, '');
+        daysSum = +this.value;       
+        check(daysSum);
+
+        if (persons.value == '') {
+            totalValue.innerHTML = 0;
+            } else {
+            totalValue.innerHTML = total;
+            animateValue(totalValue, 0, total, 7000);
+        }
+    });
+
+    //ДЛя исправления ошибки с калькулятором - 0 при очистке инпута
+    function check(a){
+        if(a!='' || a!=0){
+            total = (daysSum+personsSum)*4000;
+        } else {
+            total = 0;
+        }
+    }
+
+    //Эта функция для выбора баз
+    place.addEventListener('change', function() {
+        if (restDays.value == '' || persons.value == '') {
+            totalValue.innerHTML = 0;
+            } else {
+            let a = total;
+            totalValue.innerHTML = a * this.options[this.selectedIndex].value;
+        }
+    });
+
+    // animate counter
+    function animateValue(name, start, end, duration) {
+        var range = end - start;
+        var current = start;
+        var step = end > start? 100 : -100;
+        var stepTime = Math.abs(Math.floor(duration / range));
+        //var obj = document.getElementById(id);
+        var timer = setInterval(function() {
+            current += step;
+            name.innerHTML = current;
+            if (current == end) {
+                clearInterval(timer);
+            }
+        }, stepTime);
+    }
+    
+    
     
 });
