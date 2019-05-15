@@ -382,13 +382,14 @@ window.addEventListener('DOMContentLoaded', () => {
     totalValue.innerHTML = 0;
 
     //люди
-    persons.addEventListener('input', function(a) {
+    persons.addEventListener('input', function() {
         this.value = this.value.replace(/[e\+]/g, '').replace(/[^0-9]/g, '');
         personsSum = +this.value;
-        check(personsSum);
+        total = (daysSum+personsSum)*4000;
 
-        if (restDays.value == '') {
+        if (restDays.value == '' || personsSum == 0) {
             totalValue.innerHTML = 0;
+            animateValue(totalValue, total, 0, 7000);
         } else {
             totalValue.innerHTML = total;
             animateValue(totalValue, 0, total, 7000);
@@ -396,27 +397,19 @@ window.addEventListener('DOMContentLoaded', () => {
     });
 
     //дни
-    restDays.addEventListener('input', function(a) { 
+    restDays.addEventListener('input', function() { 
         this.value = this.value.replace(/[e\+]/g, '').replace(/[^0-9]/g, '');
-        daysSum = +this.value;       
-        check(daysSum);
+        daysSum = +this.value; 
+        total = (daysSum+personsSum)*4000;
 
-        if (persons.value == '') {
+        if (persons.value == '' || daysSum == 0) {
             totalValue.innerHTML = 0;
-            } else {
+            animateValue(totalValue, total, 0, 7000);
+        } else {
             totalValue.innerHTML = total;
             animateValue(totalValue, 0, total, 7000);
         }
     });
-
-    //ДЛя исправления ошибки с калькулятором - 0 при очистке инпута
-    function check(a){
-        if(a!='' || a!=0){
-            total = (daysSum+personsSum)*4000;
-        } else {
-            total = 0;
-        }
-    }
 
     //Эта функция для выбора баз
     place.addEventListener('change', function() {
@@ -428,9 +421,9 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // animate counter
+    // animation counter
     function animateValue(name, start, end, duration) {
-        var range = end - start;
+        var range = start - end;
         var current = start;
         var step = end > start? 100 : -100;
         var stepTime = Math.abs(Math.floor(duration / range));
@@ -442,8 +435,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 clearInterval(timer);
             }
         }, stepTime);
-    }
-    
+    } 
     
     
 });
