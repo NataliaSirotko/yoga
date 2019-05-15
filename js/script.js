@@ -387,9 +387,8 @@ window.addEventListener('DOMContentLoaded', () => {
         personsSum = +this.value;
         total = (daysSum+personsSum)*4000;
 
-        if (restDays.value == '' || personsSum == 0) {
+        if (restDays.value == '' ) {
             totalValue.innerHTML = 0;
-            animateValue(totalValue, total, 0, 7000);
         } else {
             totalValue.innerHTML = total;
             animateValue(totalValue, 0, total, 7000);
@@ -404,7 +403,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
         if (persons.value == '' || daysSum == 0) {
             totalValue.innerHTML = 0;
-            animateValue(totalValue, total, 0, 7000);
         } else {
             totalValue.innerHTML = total;
             animateValue(totalValue, 0, total, 7000);
@@ -423,12 +421,11 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // animation counter
     function animateValue(name, start, end, duration) {
-        var range = start - end;
-        var current = start;
-        var step = end > start? 100 : -100;
-        var stepTime = Math.abs(Math.floor(duration / range));
-        //var obj = document.getElementById(id);
-        var timer = setInterval(function() {
+        let range = start - end;
+        let current = start;               
+        let step = end > start? 100 : -100;
+        let stepTime = Math.abs(Math.floor(duration / range));
+        let timer = setInterval(function() {
             current += step;
             name.innerHTML = current;
             if (current == end) {
