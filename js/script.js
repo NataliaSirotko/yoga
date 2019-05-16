@@ -383,7 +383,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     //люди
     persons.addEventListener('input', function() {
-        this.value = this.value.replace(/[e\+]/g, '').replace(/[^0-9]/g, '');
+        this.value = this.value.replace(/[e\+]/g, '').replace(/[^0-9]/g, '').replace(/^0/, '');
         personsSum = +this.value;
         total = (daysSum+personsSum)*4000;
 
@@ -397,7 +397,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     //дни
     restDays.addEventListener('input', function() { 
-        this.value = this.value.replace(/[e\+]/g, '').replace(/[^0-9]/g, '');
+        this.value = this.value.replace(/[e\+]/g, '').replace(/[^0-9]/g, '').replace(/^0/, '');
         daysSum = +this.value; 
         total = (daysSum+personsSum)*4000;
 
