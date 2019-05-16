@@ -416,7 +416,7 @@ window.addEventListener('DOMContentLoaded', () => {
             } else {
             let a = total;
             totalValue.innerHTML = a * this.options[this.selectedIndex].value;
-            animateValue(totalValue, 0, total, 7000);
+            animateValue(totalValue, 0, totalValue.innerHTML, 7000);
         }
     });
 
@@ -426,14 +426,13 @@ window.addEventListener('DOMContentLoaded', () => {
         let current = start;               
         let step = end > start? 100 : -100;
         let stepTime = Math.abs(Math.floor(duration / range));
-        let timer = setInterval(function() {
+        let timer = setInterval(() => {
             current += step;
             name.innerHTML = current;
             if (current == end) {
                 clearInterval(timer);
             }
         }, stepTime);
-    } 
-    
+    }  
     
 });
