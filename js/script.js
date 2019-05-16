@@ -411,11 +411,12 @@ window.addEventListener('DOMContentLoaded', () => {
 
     //Эта функция для выбора баз
     place.addEventListener('change', function() {
-        if (restDays.value == '' || persons.value == '') {
+        if (restDays.value == '' || persons.value == '' || daysSum == 0 || personsSum == 0) {
             totalValue.innerHTML = 0;
             } else {
             let a = total;
             totalValue.innerHTML = a * this.options[this.selectedIndex].value;
+            animateValue(totalValue, 0, total, 7000);
         }
     });
 
